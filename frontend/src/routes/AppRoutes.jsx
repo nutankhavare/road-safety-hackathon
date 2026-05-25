@@ -4,6 +4,7 @@ import Home from '../pages/Home';
 import Analyze from '../pages/Analyze';
 import Results from '../pages/Results';
 import Dashboard from '../pages/Dashboard';
+import Reports from '../pages/Reports';
 import NotFound from '../pages/NotFound';
 
 const AppRoutes = () => {
@@ -13,6 +14,7 @@ const AppRoutes = () => {
       <Route path="/analyze" element={<Analyze />} />
       <Route path="/results" element={<Results />} />
       <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/reports" element={<Reports />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );

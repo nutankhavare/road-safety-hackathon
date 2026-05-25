@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../services/api';
+import { useLanguage } from '../context/LanguageContext';
 import { 
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
   PieChart, Pie, Cell
@@ -10,6 +11,7 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
+  const { t } = useLanguage();
   const [stats, setStats] = useState({
     totalReports: 0,
     criticalRoads: 0,
@@ -126,14 +128,14 @@ const Dashboard = () => {
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b border-dark-700 pb-6">
         <div>
           <h1 className="text-4xl font-extrabold tracking-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            Real-Time Analytics Dashboard
+            {t('dashboardTitle')}
           </h1>
           <p className="text-gray-400 mt-2 text-sm md:text-base flex items-center gap-2">
             <span className="flex h-2.5 w-2.5 relative">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
             </span>
-            Monitoring active road infrastructure status from Supabase database.
+            {t('dashboardSubtitle')}
           </p>
         </div>
         
@@ -180,7 +182,7 @@ const Dashboard = () => {
             {/* Total Reports */}
             <div className="bg-dark-800/60 backdrop-blur-md border border-dark-700 rounded-2xl p-6 hover:border-primary/40 transition-all group shadow-xl">
               <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-400 font-medium tracking-wide">Total Scans</p>
+                <p className="text-sm text-gray-400 font-medium tracking-wide">{t('dashboardTotalReports')}</p>
                 <div className="p-2 bg-primary/10 rounded-lg text-primary group-hover:bg-primary/20 transition-all">
                   <Activity className="w-5 h-5" />
                 </div>
@@ -192,7 +194,7 @@ const Dashboard = () => {
             {/* Critical Roads */}
             <div className="bg-dark-800/60 backdrop-blur-md border border-dark-700 rounded-2xl p-6 hover:border-rose-500/40 transition-all group shadow-xl">
               <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-400 font-medium tracking-wide">Critical Hazards</p>
+                <p className="text-sm text-gray-400 font-medium tracking-wide">{t('dashboardCriticalRoads')}</p>
                 <div className="p-2 bg-rose-500/10 rounded-lg text-rose-400 group-hover:bg-rose-500/20 transition-all">
                   <ShieldAlert className="w-5 h-5" />
                 </div>

@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import './styles/global.css';
 @import './styles/animations.css';
+@import './styles/language.css';
+@import './styles/reports.css';
 
 @theme {
   --color-primary: #3b82f6;

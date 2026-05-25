@@ -15,8 +15,14 @@ const analyzeRoad = async (req, res) => {
     const filePath = req.file.path;
     const mimeType = req.file.mimetype;
 
-    // 1. Analyze with Gemini
-    const analysisResult = await geminiService.analyzeImage(filePath, mimeType);
+    // Extract language sent from frontend; default to English if missing/unsupported
+    const SUPPORTED_LANGS = ['english', 'hindi', 'kannada'];
+    const rawLang = (req.body.language || 'english').toLowerCase().trim();
+    const language = SUPPORTED_LANGS.includes(rawLang) ? rawLang : 'english';
+    console.log(`[LANG] Analysis requested in language: "${language}"`);
+
+    // 1. Analyze with Gemini (pass language so response is multilingual)
+    const analysisResult = await geminiService.analyzeImage(filePath, mimeType, language);
 
     // 2. Prepare database values
     // Using localhost URL for the image access

@@ -13,6 +13,26 @@ const pool = new Pool({
   }
 });
 
+// Diagnostic logging for host
+let connectionHost = 'db.buphnvajvygxcafjhzvt.supabase.co (Fallback)';
+if (process.env.DATABASE_URL) {
+  try {
+    const match = process.env.DATABASE_URL.match(/@([^/:]+)/);
+    if (match && match[1]) {
+      connectionHost = match[1];
+    } else {
+      connectionHost = 'DATABASE_URL (Found but unparseable)';
+    }
+  } catch (e) {
+    connectionHost = 'DATABASE_URL (Error parsing)';
+  }
+}
+console.log('--- DATABASE DIAGNOSTIC INFO ---');
+console.log('Attempting connection to host:', connectionHost);
+console.log('DATABASE_URL is set:', !!process.env.DATABASE_URL);
+console.log('DATABASE_PASSWORD is set:', !!process.env.DATABASE_PASSWORD);
+console.log('--------------------------------');
+
 // Test connection
 pool.query('SELECT NOW()', (err, res) => {
   if (err) {

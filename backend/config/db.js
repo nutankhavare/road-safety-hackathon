@@ -1,21 +1,5 @@
 require('dotenv').config();
 const { Pool } = require('pg');
-const dns = require('dns');
-
-// Force ALL DNS lookups to use IPv4 only
-// This fixes ENETUNREACH errors on Render's free tier which cannot reach IPv6 addresses
-const origLookup = dns.lookup;
-dns.lookup = function(hostname, options, callback) {
-  if (typeof options === 'function') {
-    callback = options;
-    options = { family: 4 };
-  } else if (typeof options === 'number') {
-    options = { family: 4 };
-  } else {
-    options = Object.assign({}, options, { family: 4 });
-  }
-  return origLookup.call(this, hostname, options, callback);
-};
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL || undefined,
